@@ -13,6 +13,8 @@ public interface EquipmentTypeRepository extends CrudRepository<EquipmentType, I
     @Query("SELECT e FROM EquipmentType e WHERE " +
             "(:name IS NULL OR LOWER(e.name) LIKE LOWER(CONCAT('%', :name, '%'))) " +
             "AND (:state IS NULL OR LOWER(e.state.name) LIKE LOWER(CONCAT('%', :state, '%')))")
-    List<Country> filterCountries(@Param("name") String name,
-                                  @Param("state") String state);
+    List<EquipmentType> filterEquipmentTypes(@Param("name") String name,
+                                             @Param("state") String state);
+
+    boolean existsByName(String name);
 }

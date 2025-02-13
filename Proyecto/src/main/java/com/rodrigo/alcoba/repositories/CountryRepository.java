@@ -16,4 +16,6 @@ public interface CountryRepository extends CrudRepository<Country, Integer> {
             "AND (:state IS NULL OR LOWER(c.state.name) LIKE LOWER(CONCAT('%', :state, '%')))")
     List<Country> filterCountries(@Param("name") String name,
                                   @Param("state") String state);
+
+    boolean existsByName(String name);
 }

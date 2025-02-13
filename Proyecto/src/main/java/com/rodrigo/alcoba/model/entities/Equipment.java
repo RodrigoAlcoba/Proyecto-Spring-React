@@ -45,7 +45,7 @@ public class Equipment {
     private State state;
 
     @Lob
-    @Column(name = "image", nullable = false)
+    @Column(name = "image")
     private byte[] image;
 
 

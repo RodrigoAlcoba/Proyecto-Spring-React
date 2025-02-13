@@ -41,7 +41,7 @@ public class CountryController {
     public ResponseEntity<?> activateCountry(@PathVariable int id){
         Optional<Country> countryOptional = countryService.findCountryById(id);
         if(countryOptional.isPresent()) {
-            countryService.activateCountry(countryOptional.get());
+            countryService.activateCountry(countryOptional.get().getId());
             return ResponseEntity.status(HttpStatus.CREATED).body(countryOptional.orElseThrow());
         }
         return ResponseEntity.notFound().build();
@@ -51,7 +51,7 @@ public class CountryController {
     public ResponseEntity<?> desactivateCountry(@PathVariable int id){
         Optional<Country> countryOptional = countryService.findCountryById(id);
         if(countryOptional.isPresent()) {
-            countryService.deactivateCountry(countryOptional.get());
+            countryService.deactivateCountry(countryOptional.get().getId());
             return ResponseEntity.status(HttpStatus.CREATED).body(countryOptional.orElseThrow());
         }
         return ResponseEntity.notFound().build();

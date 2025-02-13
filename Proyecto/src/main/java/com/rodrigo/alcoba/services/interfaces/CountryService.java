@@ -10,8 +10,8 @@ public interface CountryService {
     List<Country> allCountries();
     Optional<Country> findCountryById(int id);
     Country saveCountry(Country country);
-    Country activateCountry(Country country);
-    Country deactivateCountry(Country country);
+    Country activateCountry(Integer id);
+    Country deactivateCountry(Integer id);
     List<Country> filterCountries(String name, String state);
 
 }
