@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public Optional<User> desactivateUser(Integer id) {
+    public Optional<User> deactivateUser(Integer id) {
         Optional<User> userOptional = this.findUserById(id);
         User finalUser = null;
 

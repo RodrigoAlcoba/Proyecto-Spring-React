@@ -27,7 +27,7 @@ public class User {
     private String phone;
 
     @Column(name = "username" ,unique = true, nullable = false, length = 50)
-    private String username = name.toLowerCase()+"."+lastname.toLowerCase();
+    private String username;
 
     @Column(name = "email",unique = true, nullable = false, length = 50)
     private String email;

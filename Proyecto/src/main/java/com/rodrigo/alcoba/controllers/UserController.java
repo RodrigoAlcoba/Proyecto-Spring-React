@@ -49,11 +49,11 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/desactivate/{id}")
+    @PutMapping("/deactivate/{id}")
     public ResponseEntity<?> desactivateUser(@PathVariable Integer id){
         Optional<User> userOptional = userService.findUserById(id);
         if(userOptional.isPresent()){
-            userService.desactivateUser(id);
+            userService.deactivateUser(id);
             return ResponseEntity.status(HttpStatus.CREATED).body(userOptional.orElseThrow());
         }
         return ResponseEntity.notFound().build();

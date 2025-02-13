@@ -13,7 +13,7 @@ public interface UserService {
 
     User saveUser(User user);
 
-    Optional<User> desactivateUser(Integer id);
+    Optional<User> deactivateUser(Integer id);
 
     Optional<User> activateUser(Integer id);
 
