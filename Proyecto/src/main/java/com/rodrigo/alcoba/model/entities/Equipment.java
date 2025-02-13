@@ -1,8 +1,6 @@
 package com.rodrigo.alcoba.model.entities;
 
-
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 
 @Entity
@@ -10,34 +8,52 @@ import java.time.LocalDate;
 public class Equipment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
+
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "equipment_type_id")
+    @JoinColumn(name = "equipment_type_id", nullable = false)
     private EquipmentType equipmentType;
 
+    @Column(name = "brand", nullable = false, length = 45)
     private String brand;
+
+    @Column(name = "model", nullable = false, length = 100)
     private String model;
 
-    @Column(unique = true)
+    @Column(name = "serial_number", nullable = false, length = 20)
     private String serialNumber;
-    private String country;
+
+    @ManyToOne
+    @JoinColumn(name = "country_id", nullable = false)
+    private Country country;
+
+    @Column(name = "provider", nullable = false, length = 45)
     private String provider;
+
+    @Column(name = "acquisition_date", nullable = false)
     private LocalDate acquisitionDate;
 
     @ManyToOne
-    @JoinColumn(name = "location_id")
+    @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 
-    private String image;
+    @ManyToOne
+    @JoinColumn(name = "state_id", nullable = false)
+    private State state;
+
+    @Lob
+    @Column(name = "image", nullable = false)
+    private byte[] image;
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -81,11 +97,11 @@ public class Equipment {
         this.serialNumber = serialNumber;
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 
@@ -113,11 +129,19 @@ public class Equipment {
         this.location = location;
     }
 
-    public String getImage() {
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 }

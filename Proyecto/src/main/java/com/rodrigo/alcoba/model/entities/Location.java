@@ -9,9 +9,15 @@ public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "institution", nullable = false, length = 45)
     private String institution;
+
+    @Column(name = "sector", nullable = false, length = 45)
     private String sector;
-    private String floor;
+
+    @Column(name = "floor", nullable = false, length = 45)
+    private int floor;
 
 
     public Long getId() {
@@ -38,11 +44,11 @@ public class Location {
         this.sector = sector;
     }
 
-    public String getFloor() {
+    public int getFloor() {
         return floor;
     }
 
-    public void setFloor(String floor) {
+    public void setFloor(int floor) {
         this.floor = floor;
     }
 }

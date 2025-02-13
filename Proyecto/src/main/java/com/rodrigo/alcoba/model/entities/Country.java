@@ -4,28 +4,19 @@ package com.rodrigo.alcoba.model.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "equipment_types")
-public class EquipmentType {
+@Table(name = "countries")
+public class Country {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "name", unique = true, nullable = false, length = 45)
+    @Column(name = "name", nullable = false, length = 45)
     private String name;
-
 
     @ManyToOne
     @JoinColumn(name = "state_id", nullable = false)
     private State state;
-
-    public State getState() {
-        return state;
-    }
-
-    public void setState(State state) {
-        this.state = state;
-    }
 
     public Integer getId() {
         return id;
@@ -41,5 +32,13 @@ public class EquipmentType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 }

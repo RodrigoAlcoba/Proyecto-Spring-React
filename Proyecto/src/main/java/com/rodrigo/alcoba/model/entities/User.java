@@ -9,36 +9,45 @@ import java.time.LocalDate;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
+    @Column(name = "name", nullable = false, length = 50)
     private String name;
+
+    @Column(name = "lastname", nullable = false, length = 50)
     private String lastname;
 
-    @Column(unique = true)
+    @Column(name = "person_id", unique = true, nullable = false, length = 50)
     private String personId;
+
+    @Column(name = "birthdate", nullable = false)
     private LocalDate birthdate;
+
+    @Column(name = "phone", nullable = false, length = 50)
     private String phone;
 
-    @Column(unique = true)
-    private String username;
+    @Column(name = "username" ,unique = true, nullable = false, length = 50)
+    private String username = name.toLowerCase()+"."+lastname.toLowerCase();
 
-    @Column(unique = true)
+    @Column(name = "email",unique = true, nullable = false, length = 50)
     private String email;
+
+    @Column(name = "password", nullable = false, length = 50)
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "user_type_id")
+    @JoinColumn(name = "user_type_id", nullable = false)
     private UserType userType;
 
     @ManyToOne
-    @JoinColumn(name = "state_id")
+    @JoinColumn(name = "state_id", nullable = false)
     private State state;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
