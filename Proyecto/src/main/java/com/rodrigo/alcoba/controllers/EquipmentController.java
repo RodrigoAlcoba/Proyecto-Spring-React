@@ -1,18 +1,34 @@
 package com.rodrigo.alcoba.controllers;
 
 import com.rodrigo.alcoba.model.entities.Equipment;
+import com.rodrigo.alcoba.services.interfaces.CountryService;
 import com.rodrigo.alcoba.services.interfaces.EquipmentService;
+import com.rodrigo.alcoba.services.interfaces.EquipmentTypeService;
+import com.rodrigo.alcoba.services.interfaces.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/equipments")
 public class EquipmentController {
+
+    @Autowired
+    private EquipmentTypeService equipmentTypeService;
+
+    @Autowired
+    private LocationService locationService;
+
+    @Autowired
+    private CountryService countryService;
+
 
     @Autowired
     private EquipmentService equipmentService;
@@ -28,7 +44,7 @@ public class EquipmentController {
     }
 
     @GetMapping("/filter")
-    public List<Equipment> filterEquipments(
+    public ResponseEntity<List<Equipment>> filterEquipments(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String equipmentType,
             @RequestParam(required = false) String brand,
@@ -39,9 +55,16 @@ public class EquipmentController {
             @RequestParam(required = false) String institution,
             @RequestParam(required = false) String sector,
             @RequestParam(required = false) Integer floor,
-            @RequestParam(required = false) String state) {
-        return equipmentService.filterEquipments(name, equipmentType, brand, model, serialNumber, country, provider, institution, sector, floor, state);
+            @RequestParam(required = false) String state,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+
+        List<Equipment> equipments = equipmentService.filterEquipments(
+                name, equipmentType, brand, model, serialNumber, country, provider, institution, sector, floor, state, startDate, endDate);
+
+        return ResponseEntity.ok(equipments);
     }
+
 
     @PostMapping
     public Equipment save(@RequestBody Equipment equipment) {

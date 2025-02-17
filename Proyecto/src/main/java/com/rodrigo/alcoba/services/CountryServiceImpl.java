@@ -43,7 +43,6 @@ public class CountryServiceImpl implements CountryService {
     @Override
     @Transactional
     public Country saveCountry(Country country) {
-        country.setState(stateRepository.findById(1).orElseThrow());
         if (countryRepository.existsByName(country.getName())) {
             throw new RuntimeException("El pais ya existe.");
         }

@@ -93,9 +93,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<User> filterUsers(String name, String lastname, String username, String email, String userType, String state) {
-        return userRepository.filterUsers(name, lastname, username, email, userType, state);
+    public List<User> filterUsers(String search, String userType, String state) {
+        return userRepository.filterUsers(
+                (search == null || search.trim().isEmpty()) ? null : search.toLowerCase(),
+                (userType == null || userType.isEmpty()) ? null : Integer.parseInt(userType),
+                (state == null || state.isEmpty()) ? null : Integer.parseInt(state)
+        );
     }
+
+
+
 
     @Override
     @Transactional

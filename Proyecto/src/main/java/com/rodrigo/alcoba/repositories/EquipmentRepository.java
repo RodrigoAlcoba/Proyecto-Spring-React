@@ -4,6 +4,8 @@ import org.springframework.data.repository.CrudRepository;
 import com.rodrigo.alcoba.model.entities.Equipment;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public interface EquipmentRepository extends CrudRepository<Equipment, Integer> {
@@ -19,7 +21,9 @@ public interface EquipmentRepository extends CrudRepository<Equipment, Integer> 
             "AND (:institution IS NULL OR LOWER(e.location.institution) LIKE LOWER(CONCAT('%', :institution, '%'))) " +
             "AND (:sector IS NULL OR LOWER(e.location.sector) LIKE LOWER(CONCAT('%', :sector, '%'))) " +
             "AND (:floor IS NULL OR e.location.floor = :floor) " +
-            "AND (:state IS NULL OR LOWER(e.state.name) LIKE LOWER(CONCAT('%', :state, '%')))")
+            "AND (:state IS NULL OR LOWER(e.state.name) LIKE LOWER(CONCAT('%', :state, '%'))) " +
+            "AND (:startDate IS NULL OR e.acquisitionDate >= :startDate) " +
+            "AND (:endDate IS NULL OR e.acquisitionDate <= :endDate)")
     List<Equipment> filterEquipments(@Param("name") String name,
                                      @Param("equipmentType") String equipmentType,
                                      @Param("brand") String brand,
@@ -30,7 +34,10 @@ public interface EquipmentRepository extends CrudRepository<Equipment, Integer> 
                                      @Param("institution") String institution,
                                      @Param("sector") String sector,
                                      @Param("floor") Integer floor,
-                                     @Param("state") String state);
+                                     @Param("state") String state,
+                                     @Param("startDate") LocalDate startDate,
+                                     @Param("endDate") LocalDate endDate);
+
 
 
 }

@@ -3,6 +3,7 @@ package com.rodrigo.alcoba.services;
 import com.rodrigo.alcoba.model.entities.Equipment;
 import com.rodrigo.alcoba.model.entities.EquipmentDecommission;
 import com.rodrigo.alcoba.model.entities.pkcompuesta.EquipmentDecommissionId;
+import com.rodrigo.alcoba.repositories.CountryRepository;
 import com.rodrigo.alcoba.repositories.EquipmentDecommissionRepository;
 import com.rodrigo.alcoba.repositories.EquipmentRepository;
 import com.rodrigo.alcoba.repositories.StateRepository;
@@ -27,6 +28,8 @@ public class EquipmentServiceImpl implements EquipmentService {
     @Autowired
     private StateRepository stateRepository;
 
+    private CountryRepository countryRepository;
+
     @Override
     @Transactional(readOnly = true)
     public List<Equipment> findAll() {
@@ -42,6 +45,7 @@ public class EquipmentServiceImpl implements EquipmentService {
     @Override
     @Transactional
     public Equipment save(Equipment equipment) {
+        equipment.setState(stateRepository.findById(1).get());
         return equipmentRepository.save(equipment);
     }
 
@@ -96,7 +100,11 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Equipment> filterEquipments(String name, String equipmentType, String brand, String model, String serialNumber, String country, String provider, String institution, String sector, Integer floor, String state) {
-        return equipmentRepository.filterEquipments(name, equipmentType, brand, model, serialNumber, country, provider, institution, sector, floor, state);
+    public List<Equipment> filterEquipments(String name, String equipmentType, String brand,
+                                            String model, String serialNumber, String country,
+                                            String provider, String institution, String sector,
+                                            Integer floor, String state, LocalDate startDate, LocalDate endDate) {
+        return equipmentRepository.filterEquipments(name, equipmentType, brand, model, serialNumber, country, provider, institution, sector, floor, state, startDate, endDate);
     }
+
 }

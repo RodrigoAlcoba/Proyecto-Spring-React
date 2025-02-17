@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -71,15 +72,14 @@ public class UserController {
 
     @GetMapping("/filter")
     public ResponseEntity<List<User>> filterUsers(
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String lastname,
-            @RequestParam(required = false) String username,
-            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String search,
             @RequestParam(required = false) String userType,
             @RequestParam(required = false) String state) {
 
-        List<User> users = userService.filterUsers(name, lastname, username, email, userType, state);
+        List<User> users = userService.filterUsers(search, userType, state);
         return ResponseEntity.ok(users);
     }
+
+
 
 }

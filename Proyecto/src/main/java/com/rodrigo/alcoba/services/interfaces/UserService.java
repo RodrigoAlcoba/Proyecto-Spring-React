@@ -19,5 +19,5 @@ public interface UserService {
 
     Optional<User> updateUser(User user, Integer id);
 
-    List<User> filterUsers(String name, String lastname, String username, String email, String userType, String state);
+    List<User> filterUsers(String search, String userType, String state);
 }

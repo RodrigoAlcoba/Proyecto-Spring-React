@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/countries")
 public class CountryController {
@@ -25,7 +26,7 @@ public class CountryController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getCountryById(@PathVariable int id){
-        Optional countryOptional = countryService.findCountryById(id);
+        Optional<Country> countryOptional = countryService.findCountryById(id);
         if(countryOptional.isPresent()) {
             return ResponseEntity.ok(countryOptional.orElseThrow());
         }
